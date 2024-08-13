@@ -14,7 +14,7 @@
 ### 示例
 ```json
 {
-  "onlyJson": true, // 返回结果仅包含json部分
+  "onlyJson": false, // 返回结果仅包含json部分
   "iuTag": "iu", // 正在使用菜单的玩家的标签
   "cuTag": "cu", // 可以使用菜单的玩家的标签
   "mCtrScb": "mCtr", // 菜单选项计数器
@@ -25,7 +25,7 @@
   "Content": [
     {
       "Static": true, // 是否为静态文本（即不作为选项）
-      "Text": "§d女巫§d操作面板\n§b请在下方选择目标\n§c倒计时", // 文本内容
+      "Text": "§d女巫§d操作面板\n§b请在下方选择目标\n§c倒计时: ", // 文本内容
       "NewLine": false // 是否换行
     },
     {
@@ -48,6 +48,23 @@
     }
   ]
 }
+```
+&emsp;如上示例返回的指令：
+```json
+execute 
+  as @a[tag=iu,scores={mLayer=2}] 
+  run titleraw @s actionbar 
+  {
+    "rawtext":[
+      {"text":"§d女巫§d操作面板\n§b请在下方选择目标\n§c倒计时: "},
+      {"score":{"objective":"sem","name":"witchTmrInSec"}},
+      {"text":"\n§r§"},
+      {"score":{"objective":"mColor","name":"@s[scores={mCtr=0}]"}},
+      {"text":"＞§c红§"},
+      {"score":{"objective":"mColor","name":"@s[scores={mCtr=1}]"}},
+      {"text":"＞§9蓝"}
+    ]
+  }
 ```
 ### 一些小细节
 &emsp;如果要使静态Score显示的分数带颜色，在其前方加上一个静态的不换行Text修改颜色即可。

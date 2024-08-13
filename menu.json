@@ -1,5 +1,5 @@
 {
-  "onlyJson": true, 
+  "onlyJson": false, 
   "iuTag": "iu", 
   "cuTag": "cu", 
   "mCtrScb": "mCtr", 
