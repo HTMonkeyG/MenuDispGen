@@ -62,7 +62,7 @@ function genSelectScb(ctr) {
 }
 
 function genDispScb(obj, name, newLine, final, static, nextStatic) {
-  var result = [], a = nextStatic ? '§r' : '§r§';;
+  var result = [], a = nextStatic ? '' : '§';
   !static && result.push({ text: prompt });
   result.push(
     {
@@ -71,14 +71,14 @@ function genDispScb(obj, name, newLine, final, static, nextStatic) {
         name: name
       }
     },
-    { text: final ? '' : newLine ? '\n' + a : a }
+    { text: final ? '' : newLine ? '\n§r' + a : a }
   );
   return result
 }
 
 function genStr(str, newLine, final, static, nextStatic) {
-  var a = nextStatic ? '§r' : '§r§';
-  return { text: `${static ? '' : prompt}${str}${final ? '' : newLine ? '\n' + a : a}` }
+  var a = nextStatic ? '' : '§';
+  return { text: `${static ? '' : prompt}${str}${final ? '' : newLine ? '\n§r' + a : a}` }
 }
 
 object.rawtext = object.rawtext.flat();

@@ -10,8 +10,8 @@
   "Content": [
     {
       "Static": true, 
-      "Text": "§d女巫§d操作面板\n§b请在下方选择目标", 
-      "NewLine": true 
+      "Text": "§d女巫§d操作面板\n§b请在下方选择目标\n§c倒计时: ", 
+      "NewLine": false 
     },
     {
       "Static": true, 
