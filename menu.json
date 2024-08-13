@@ -1,0 +1,26 @@
+{
+  "iuTag": "iu",
+  "cuTag": "cu",
+  "mCtrScb": "mCtr",
+  "mLayerScb":"mLayer",
+  "mColorScb": "mColor",
+  "prompt": "＞",
+  "Layer": 2,
+  "Content": [
+    {
+      "Static": true,
+      "Text": "§d女巫§d操作面板\n§b请在下方选择目标",
+      "NewLine": true
+    },
+    {
+      "Ctr": 0,
+      "Text": "§c红",
+      "NewLine": false
+    },
+    {
+      "Ctr": 1,
+      "Text": "§9蓝",
+      "NewLine": true
+    }
+  ]
+}
