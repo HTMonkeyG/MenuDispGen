@@ -1,19 +1,28 @@
 {
-  "iuTag": "iu",
-  "cuTag": "cu",
-  "mCtrScb": "mCtr",
-  "mLayerScb":"mLayer",
-  "mColorScb": "mColor",
-  "prompt": "＞",
-  "Layer": 2,
+  "onlyJson": true, 
+  "iuTag": "iu", 
+  "cuTag": "cu", 
+  "mCtrScb": "mCtr", 
+  "mLayerScb":"mLayer", 
+  "mColorScb": "mColor", 
+  "prompt": "＞", 
+  "Layer": 2, 
   "Content": [
     {
-      "Static": true,
-      "Text": "§d女巫§d操作面板\n§b请在下方选择目标",
-      "NewLine": true
+      "Static": true, 
+      "Text": "§d女巫§d操作面板\n§b请在下方选择目标", 
+      "NewLine": true 
     },
     {
-      "Ctr": 0,
+      "Static": true, 
+      "Score": { 
+        "Objective": "sem", 
+        "Name": "witchTmrInSec" 
+      },
+      "NewLine": true 
+    },
+    {
+      "Ctr": 0, 
       "Text": "§c红",
       "NewLine": false
     },

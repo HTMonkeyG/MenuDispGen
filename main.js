@@ -1,36 +1,56 @@
 const fs = require("fs");
 
-let menu = JSON.parse(fs.readFileSync("./menu.json", 'utf-8'));
+var menu = JSON.parse(fs.readFileSync("./menu.json", 'utf-8'));
 
 // Tag for player who is using menu.
-const iuTag = menu.iuTag;
-// Tag for player who can use menu.
-const cuTag = menu.cuTag;
-// Objective for menu item counter.
-const mCtrScb = menu.mCtrScb;
-// Objective for menu page.
-const mLayerScb = menu.mLayerScb;
-// Objective for menu color.
-const mColorScb = menu.mColorScb;
-// Must be single character.
-// Prompt for selected menu item.
-const prompt = menu.prompt;
+var iuTag = menu.iuTag
+  // Tag for player who can use menu.
+  , cuTag = menu.cuTag
+  // Objective for menu item counter.
+  , mCtrScb = menu.mCtrScb
+  // Objective for menu page.
+  , mLayerScb = menu.mLayerScb
+  // Objective for menu color.
+  , mColorScb = menu.mColorScb
+  // Must be single character.
+  // Prompt for selected menu item.
+  , prompt = menu.prompt
+  // Only returns JSON part of command
+  , onlyJson = menu.onlyJson;
 
-//let text = `execute @a[tag=${iuTag},scores={${mLayerScb}=${menu.Layer}}] ~~~ titleraw @s actionbar `;
-let text = `execute as @a[tag=${iuTag},scores={${mLayerScb}=${menu.Layer}}] run titleraw @s actionbar `;
-//let text = `execute as @a[tag=${iuTag}] run titleraw @s actionbar `;
+//var text = `execute @a[tag=${iuTag},scores={${mLayerScb}=${menu.Layer}}] ~~~ titleraw @s actionbar `;
+var text = `execute as @a[tag=${iuTag},scores={${mLayerScb}=${menu.Layer}}] run titleraw @s actionbar `;
+//var text = `execute as @a[tag=${iuTag}] run titleraw @s actionbar `;
 
-let object = { rawtext: [] };
+var object = { rawtext: [] };
 
-menu.Content.forEach((content, ind) => {
-  let isFinal = ind == menu.Content.length - 1;
-  if (content.Static)
-    object.rawtext.push(genStr(content.Text, content.NewLine, isFinal, true));
-  else {
-    object.rawtext.push(genSelectScb(content.Ctr));
-    object.rawtext.push(genStr(content.Text, content.NewLine, isFinal, false));
-  }
-});
+for (var ind = 0; ind < menu.Content.length; ind++) {
+  var content = menu.Content[ind]
+    , isFinal = !menu.Content[ind + 1]
+    , nextStatic = menu.Content[ind + 1] && menu.Content[ind + 1].Static
+    , obj = null;
+
+  if (content.Score)
+    obj = genDispScb(
+      content.Score.Objective,
+      content.Score.Name,
+      content.NewLine,
+      isFinal,
+      content.Static,
+      nextStatic
+    );
+  else
+    obj = genStr(
+      content.Text,
+      content.NewLine,
+      isFinal,
+      content.Static,
+      nextStatic
+    );
+
+  content.Static || object.rawtext.push(genSelectScb(content.Ctr));
+  object.rawtext.push(obj);
+}
 
 function genSelectScb(ctr) {
   return {
@@ -41,15 +61,26 @@ function genSelectScb(ctr) {
   }
 }
 
-function genStr(str, newLine, final, static) {
-  let obj;
-
-  if (final)
-    obj = { text: `${static ? '' : prompt}${str}` };
-  else
-    obj = { text: `${static ? '' : prompt}${str}${newLine ? '\n§r§' : '§r§'}` };
-
-  return obj;
+function genDispScb(obj, name, newLine, final, static, nextStatic) {
+  var result = [], a = nextStatic ? '§r' : '§r§';;
+  !static && result.push({ text: prompt });
+  result.push(
+    {
+      score: {
+        objective: obj,
+        name: name
+      }
+    },
+    { text: final ? '' : newLine ? '\n' + a : a }
+  );
+  return result
 }
 
-fs.writeFileSync("./result.txt", JSON.stringify(object));
+function genStr(str, newLine, final, static, nextStatic) {
+  var a = nextStatic ? '§r' : '§r§';
+  return { text: `${static ? '' : prompt}${str}${final ? '' : newLine ? '\n' + a : a}` }
+}
+
+object.rawtext = object.rawtext.flat();
+
+fs.writeFileSync("./result.txt", (onlyJson ? '' : text) + JSON.stringify(object));

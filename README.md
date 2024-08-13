@@ -14,17 +14,26 @@
 ### 示例
 ```json
 {
+  "onlyJson": true, // 返回结果仅包含json部分
   "iuTag": "iu", // 正在使用菜单的玩家的标签
   "cuTag": "cu", // 可以使用菜单的玩家的标签
   "mCtrScb": "mCtr", // 菜单选项计数器
   "mLayerScb":"mLayer", // 菜单页面计数器
   "mColorScb": "mColor", // 菜单颜色计分项
-  "pointer": "＞", // 选中的提示符
+  "prompt": "＞", // 选中的提示符
   "Layer": 2, // 以下内容所在页面
   "Content": [
     {
       "Static": true, // 是否为静态文本（即不作为选项）
       "Text": "§d女巫§d操作面板\n§b请在下方选择目标", // 文本内容
+      "NewLine": true // 是否换行
+    },
+    {
+      "Static": true, // 是否为静态文本（即不作为选项）
+      "Score": { // 显示计分项，与Text不兼容
+        "Objective": "sem", // 计分项
+        "Name": "witchTmrInSec" // 实体
+      },
       "NewLine": true // 是否换行
     },
     {
